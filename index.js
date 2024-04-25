@@ -32,6 +32,9 @@ app.set('view engine', 'ejs')
 // Define o uso da pasta "public" para uso de arquivos estáticos
 app.use(express.static('public'))
 
+//configurando o expresspara receber dados de formularios
+app.use(express.urlencoded({extended:false}))
+
 // Definindo o uso das rotas dos Controllers
 app.use("/", PedidosController)
 app.get("/pedidos",function(req,res){

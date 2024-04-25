@@ -1,24 +1,27 @@
 <%- include ('partials/header.ejs') %>
     <%- include ('partials/navbar.ejs') %>
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h1>Cadastrar cliente</h1>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Cadastrar cliente</h1>
+                </div>
+                <div class="card-body">
+                    <form action="/clientes/new" method="post">
+                        <label>Nome do cliente:</label>
+                        <input type="text" name="nome" placeholder="Insira o nome do cliente" class="form-control"
+                            required>
+                        <label>CPF do cliente:</label>
+                        <input type="text" name="cpf" placeholder="Insira o CPF do cliente" class="form-control"
+                            required>
+                        <label>Endereço do cliente:</label>
+                        <input type="text" name="endereco" placeholder="Insira o endereço do cliente"
+                            class="form-control" required>
+                        <input type="submit" value="Cadastrar" class="btn btn-success mt-3">
+                    </form>
+                    <hr>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="/clientes/new" method="post">
-                <label >Nome do cliente:</label>
-                <input type="text" name="nome" placeholder="Insira o nome do cliente" class="form-control" required>
-                <label >CPF do cliente:</label>
-                <input type="text" name="cpf" placeholder="Insira o CPF do cliente" class="form-control" required>
-                <label >Endereço do cliente:</label>
-                <input type="text" name="endereco" placeholder="Insira o endereço do cliente" class="form-control" required>
-                <input type="submit" value="Cadastrar" class="btn btn-success mt-3">
-            </form>
-            <hr>
-        </div>
-    </div>
-</div>
         <div class="container mt-3">
             <div class="card">
                 <div class="card-header">
@@ -49,10 +52,11 @@
                                         <%= cliente.endereco %>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" href="/clientes/edit/<%= cliente.id %>">Editar</a> 
+                                        <a class="btn btn-warning" href="/clientes/edit/<%= cliente.id %>">Editar</a>
                                     </td>
                                     <td>
-                                       <a class="btn btn-danger" href="/clientes/delete/<%= cliente.id %>" onclick="return confirm('Deseja mesmo exluir o cliente <%= cliente.nome %>')">Excluir</a> 
+                                        <a class="btn btn-danger" href="/clientes/delete/<%= cliente.id %>"
+                                            onclick="return confirm('Deseja mesmo exluir o cliente <%= cliente.nome %>')">Excluir</a>
                                     </td>
                                 </tr>
                                 <% }) %>

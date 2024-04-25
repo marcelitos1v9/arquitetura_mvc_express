@@ -14,6 +14,7 @@
                             <th>Nome:</th>
                             <th>Preço:</th>
                             <th>Categoria:</th>
+                            <th colspan="2">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,12 @@
                             <td><%= produto.nome %></td>
                             <td><%= produto.preco.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'}) %></td>
                             <td><%= produto.categoria %></td>
+                            <td>
+                                <a class="btn btn-warning" href="/peodutos/edit/<%= produto.id %>">Editar</a> 
+                            </td>
+                            <td>
+                               <a class="btn btn-danger" href="/produtos/delete/<%= produto.id %>" onclick="return confirm('Deseja mesmo exluir o pedido <%= produto.id %>')">Excluir</a> 
+                            </td>
                         </tr>
                         <% }) %>
                     </tbody>

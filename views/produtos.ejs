@@ -1,41 +1,70 @@
 <%- include ('partials/header.ejs') %>
-<%- include ('partials/navbar.ejs') %>
+    <%- include ('partials/navbar.ejs') %>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h1>Produtos</h1>
+        <div class="container">
+
+            <div class="card">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Cadastrar Produto</h1>
+                    </div>
+                    <div class="card-body">
+                        <form action="/produtos/new" method="post">
+                            <label>Nome do produto:</label>
+                            <input type="text" name="nome" placeholder="Insira o nome do produto" class="form-control" required>
+                            <label>Valor do pedido:</label>
+                            <input type="text" name="preco" placeholder="Insira o valor do produto" class="form-control" required>
+                            <label>Categoria do produto:</label>
+                            <input type="text" name="categoria" placeholder="Insira a categoria do produto" class="form-control" required>
+                            <input type="submit" value="Cadastrar" class="btn btn-success mt-3">
+                        </form>
+                        <hr>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Nome:</th>
-                            <th>Preço:</th>
-                            <th>Categoria:</th>
-                            <th colspan="2">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% produtos.forEach(produto => { %>
-                        <tr>
-                            <td><img src="imgs/product.png" width="30px"></td>
-                            <td><%= produto.nome %></td>
-                            <td><%= produto.preco.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'}) %></td>
-                            <td><%= produto.categoria %></td>
-                            <td>
-                                <a class="btn btn-warning" href="/peodutos/edit/<%= produto.id %>">Editar</a> 
-                            </td>
-                            <td>
-                               <a class="btn btn-danger" href="/produtos/delete/<%= produto.id %>" onclick="return confirm('Deseja mesmo exluir o pedido <%= produto.id %>')">Excluir</a> 
-                            </td>
-                        </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
+            <div class="card mt-3">
+                <div class=" card-header">
+                    <h1>Produtos</h1>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nome:</th>
+                                <th>Preço:</th>
+                                <th>Categoria:</th>
+                                <th colspan="2">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% produtos.forEach(produto=> { %>
+                                <tr>
+                                    <td><img src="imgs/product.png" width="30px"></td>
+                                    <td>
+                                        <%= produto.nome %>
+                                    </td>
+                                    <td>
+                                        <%= produto.preco.toLocaleString('pt-br', {style: 'currency' , currency: 'BRL'
+                                            }) %>
+                                    </td>
+                                    <td>
+                                        <%= produto.categoria %>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" href="/produtos/edit/<%= produto.id %>">Editar</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="/produtos/delete/<%= produto.id %>"
+                                            onclick="return confirm('Deseja mesmo exluir o produto <%= produto.id %>')">Excluir</a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
-    </div>
 
-<%- include ('partials/footer.ejs') %>
+        <%- include ('partials/footer.ejs') %>

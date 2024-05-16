@@ -52,10 +52,12 @@ router.post("/authenticate",(req,res)=>{
             if(correct){
                 //autoriza o login
                 res.redirect("/")
+            }else{
+                res.send(`Senha invalida <br><a href="/login>Tentar novamente</a>`)
             }
             //se a senha não for valida 
         }else{
-            res.send(`Senha invalida <br><a href="/login>Tentar novamente</a>`)
+            res.send(`usuario nao cadastrado <br><a href="/cadastro>Tentar novamente</a>`)
         }
     })
 })

@@ -8,11 +8,11 @@
         </div>
         <div class="card-body m-auto">
             <p class="text-danger">Você precisa estar logado para acessar os recursos do painel</p>
-            <form action="">
+            <form action="/authenticate" method="post">
                 <label for="">Email:</label>
                 <input type="email" class="form-control" name="email" required placeholder="email@example.com">
                 <label for="">Senha:</label>
-                <input type="password" name="senha" class="form-control" required placeholder="insira a senha">
+                <input type="password" name="password" class="form-control" required placeholder="insira a senha">
                 <button type="submit" class="btn btn-success btn-block mt-3">Entrar</button>
             </form>
             <hr>

@@ -4,12 +4,13 @@ import express from 'express'
 const app = express()
 //importando o arquivo de conexao
 
-import connection from './config/sequileze-config.js'
+import connection from './config/sequelize-config.js'
 
 // Importando os Controllers (onde estão as rotas) 
 import PedidosController from "./controllers/PedidosController.js" 
 import ClientesController from "./controllers/ClientesController.js" 
 import ProdutosController from "./controllers/ProdutosController.js"
+import userController from "./controllers/UsersController.js"
 
 // realizando a conexao com o banco de dados
 
@@ -35,31 +36,17 @@ app.use(express.static('public'))
 //configurando o expresspara receber dados de formularios
 app.use(express.urlencoded({extended:false}))
 
-// Definindo o uso das rotas dos Controllers
-app.use("/", PedidosController)
-app.get("/pedidos",function(req,res){
-    res.render("pedidos")
-})
+
 
 // ROTA PRINCIPAL
 app.get("/",function(req,res){
     res.render("index")
 })
 
-// ROTA CLIENTES
-
+app.use("/", PedidosController)
 app.use("/",ClientesController)
-app.get("/clientes",function(req,res){
-    res.render("clientes")
-})
-
-
-// ROTA PRODUTOS
-
 app.use('/',ProdutosController)
-app.get("/produtos",function(req,res){
-    res.render("produtos")
-})
+app.use('/',userController)
 
 
 // INICIA O SERVIDOR NA PORTA 8080

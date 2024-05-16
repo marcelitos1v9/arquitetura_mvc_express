@@ -1,0 +1,24 @@
+<%- include('partials/header.ejs') %>
+<%- include('partials/navbar.ejs') %>
+
+<!-- formulario de cadastro -->
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2>Cadastro de usuario</h2>
+        </div>
+        <div class="card-body">
+            <form action="/createUser" method="post">
+                <label for="">Email:</label>
+                <input type="email" class="form-control" name="email" required placeholder="email@example.com">
+                <label for="">Senha:</label>
+                <input type="password" name="senha" class="form-control" required placeholder="insira a senha">
+                <button type="submit" class="btn btn-success btn-block mt-3">Cadastrar</button>
+            </form>
+            <hr>
+            <h6>Ja possui conta? <a href="/login">Login</a></h6>
+        </div>
+    </div>
+</div>
+
+<%- include ('partials/footer.ejs') %>

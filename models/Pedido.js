@@ -1,5 +1,5 @@
 import  Sequelize  from "sequelize";
-import connection from "../config/sequileze-config.js";
+import connection from "../config/sequelize-config.js";
 
 const Pedido = connection.define('pedidos', {
     numero: {

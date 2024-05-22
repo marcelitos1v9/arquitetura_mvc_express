@@ -1,11 +1,11 @@
 import express from "express"
 const router = express.Router()
 import Cliente from "../models/Cliente.js"
-import Auth from "../middleware/Auth.js"
+import { where } from "sequelize"
 
 //rota clientes
 
-router.get("/clientes",Auth, (req, res) => {
+router.get("/clientes", (req, res) => {
     Cliente.findAll().then(clientes => {
         res.render("clientes", {
             clientes: clientes
@@ -32,7 +32,7 @@ router.post("/clientes/new",(req,res)=>{
 
 //rota de exclusao
 
-router.get("/clientes/delete/:id",Auth,(req,res)=>{
+router.get("/clientes/delete/:id",(req,res)=>{
     const id = req.params.id
     Cliente.destroy({
         where:{
@@ -45,7 +45,7 @@ router.get("/clientes/delete/:id",Auth,(req,res)=>{
     })
 })
 
-router.get("/clientes/edit/:id",Auth,(req,res)=>{
+router.get("/clientes/edit/:id",(req,res)=>{
     const id = req.params.id
     Cliente.findByPk(id).then(cliente =>{
         res.render("clienteEdit",{
@@ -56,7 +56,7 @@ router.get("/clientes/edit/:id",Auth,(req,res)=>{
 
 //rota de alteração do cliente 
 
-router.post("/clientes/update/:id",Auth,(req,res)=>{
+router.post("/clientes/update/:id",(req,res)=>{
     const id = req.body.id
     const nome = req.body.nome
     const cpf = req.body.cpf

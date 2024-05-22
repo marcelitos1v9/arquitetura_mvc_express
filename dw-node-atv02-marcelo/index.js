@@ -4,35 +4,12 @@ import express from 'express'
 const app = express()
 //importando o arquivo de conexao
 
-import connection from './config/sequelize-config.js'
+import connection from './config/sequileze-config.js'
 
 // Importando os Controllers (onde estão as rotas) 
 import PedidosController from "./controllers/PedidosController.js" 
 import ClientesController from "./controllers/ClientesController.js" 
 import ProdutosController from "./controllers/ProdutosController.js"
-import userController from "./controllers/UsersController.js"
-
-//importando gerador de seção do express
-import session from "express-session"
-
-//importando auth
-import Auth from './middleware/Auth.js'
-
-//importando express flash
-import flash from 'express-flash'
-
-//configurando express flash
-app.use(flash())
-
-
-//configurando a seção do usuario
-
-app.use(session({
-    secret: "lojasecret",
-    cookie: {maxAge: 3600000000}, //seção expira em 2 minutos
-    saveUninitialized: false,
-    resave: false
-}))
 
 // realizando a conexao com o banco de dados
 
@@ -58,20 +35,31 @@ app.use(express.static('public'))
 //configurando o expresspara receber dados de formularios
 app.use(express.urlencoded({extended:false}))
 
-
-
-// ROTA PRINCIPAL
-app.get("/",Auth,function(req,res){
-    res.render("index",{
-        messages:req.flash()
-    })
-    
+// Definindo o uso das rotas dos Controllers
+app.use("/", PedidosController)
+app.get("/pedidos",function(req,res){
+    res.render("pedidos")
 })
 
-app.use("/", PedidosController)
+// ROTA PRINCIPAL
+app.get("/",function(req,res){
+    res.render("index")
+})
+
+// ROTA CLIENTES
+
 app.use("/",ClientesController)
+app.get("/clientes",function(req,res){
+    res.render("clientes")
+})
+
+
+// ROTA PRODUTOS
+
 app.use('/',ProdutosController)
-app.use('/',userController)
+app.get("/produtos",function(req,res){
+    res.render("produtos")
+})
 
 
 // INICIA O SERVIDOR NA PORTA 8080

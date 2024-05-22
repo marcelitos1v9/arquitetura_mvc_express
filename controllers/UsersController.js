@@ -6,11 +6,17 @@ import { where } from "sequelize"
 //rota login
 
 router.get("/login",(req,res)=>{
-    res.render("login")
+    res.render("login",{
+        loggedOut: true,
+        messages:req.flash()
+    })
 })
 
 router.get("/cadastro",(req,res)=>{
-    res.render("cadastro")
+    res.render("cadastro",{
+        loggedOut: true,
+        messages:req.flash()
+    })
 })
 
 router.post("/createUser",(req,res)=>{
@@ -35,7 +41,8 @@ router.post("/createUser",(req,res)=>{
                 res.redirect("/login")
             })
         }else{
-            res.send(`Usuario ja cadastrado! <br> <a href="/login">Tentar novamente.</a>`)
+            req.flash("danger","Usuario ja cadastrado!")
+            res.redirect("/cadastro")
         }
     })
 })
@@ -51,15 +58,32 @@ router.post("/authenticate",(req,res)=>{
             //se a senha for valida 
             if(correct){
                 //autoriza o login
+                req.session.user ={
+                    id : user.id,
+                    email : user.email
+                }
+                // res.send(`Usuario logado <br> ID : ${req.session.user['id']}<br> Email: ${req.session.user['email']}`)
+
+                //criando uma flash message
+                req.flash('success','Login Efetuado com sucesso!')
                 res.redirect("/")
             }else{
-                res.send(`Senha invalida <br><a href="/login>Tentar novamente</a>`)
+                req.flash("danger","Senha incorreta tente novamente")
+                res.redirect("/login")
             }
             //se a senha não for valida 
         }else{
-            res.send(`usuario nao cadastrado <br><a href="/cadastro>Tentar novamente</a>`)
+            req.flash("danger","Usuario nao cadastrado!")
+            res.redirect("/login")
         }
     })
+})
+
+//rota de logout
+
+router.get('/logout', (req, res) =>{
+    req.session.user = undefined
+    res.redirect("/")
 })
 
 export default router

@@ -2,9 +2,8 @@ import express from 'express'
 const router = express.Router()
 import Pedido from '../models/Pedido.js'
 // ROTA PEDIDOS
-import Auth from "../middleware/Auth.js"
 
-router.get("/pedidos", Auth,(req, res) => {
+router.get("/pedidos", (req, res) => {
     Pedido.findAll().then(pedidos => {
         res.render("pedidos", {
             pedidos: pedidos
@@ -12,7 +11,7 @@ router.get("/pedidos", Auth,(req, res) => {
     })
 })
 
-router.post("/pedidos/new", (req,res)=>{
+router.post("/pedidos/new",(req,res)=>{
     const numero = req.body.npedido;
     const valor = req.body.valorpedido;
 
@@ -26,7 +25,7 @@ router.post("/pedidos/new", (req,res)=>{
     })
 })
 
-router.get("/pedidos/delete/:id",Auth,(req,res)=>{
+router.get("/pedidos/delete/:id",(req,res)=>{
     const id = req.params.id
     Pedido.destroy({
         where:{
@@ -39,7 +38,7 @@ router.get("/pedidos/delete/:id",Auth,(req,res)=>{
     })
 })
 
-router.get("/pedidos/edit/:id",Auth,(req,res)=>{
+router.get("/pedidos/edit/:id",(req,res)=>{
     const id = req.params.id
     Pedido.findByPk(id).then(pedido =>{
         res.render("pedidoEdit",{
@@ -48,7 +47,7 @@ router.get("/pedidos/edit/:id",Auth,(req,res)=>{
     })
 })
 
-router.post("/pedidos/update/:id", Auth,(req, res) => {
+router.post("/pedidos/update/:id", (req, res) => {
     const id = req.params.id; // Mudança de req.body.id para req.params.id para obter o ID da URL
     const numero = req.body.numero;
     const valor = req.body.valor;
